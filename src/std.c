@@ -1,3 +1,4 @@
+#define SHIFT_KEY 41
 void reverse(char str[], int length) {
     int start = 0;
     int end = length - 1;
@@ -11,7 +12,12 @@ void reverse(char str[], int length) {
         end--;
     }
 }
-char keyboardLine0[] = "!1234567890-=<\tqwertyuiop[]\n_asdfghjkl;'NN\\zxcvbnm,./    ";
+char keyboardLine0[] = 
+"!1234567890-=<\tqwertyuiop[]\n_asdfghjkl;'NN\\zxcvbnm,./    ";
+
+char Upper(char src){
+    return (char)((int)src - 32);
+}
 
 int intToStr(int num, char str[], int precision) {
     int i = 0;

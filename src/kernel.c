@@ -3,6 +3,7 @@
 #include "io/keyboard.c"
 #include <stdint.h>
 #include "std.c"
+int upperCased = 0;
 void Main(void){
     console_init();
     hideCursor();
@@ -21,8 +22,17 @@ void Main(void){
             //intToStr(keyCode,bfr,0);
             //write(bfr);
             keyCode--;
-            char str[5];
+            if(keyCode == SHIFT_KEY){
+                upperCased=1;
+                continue;
+            }
+            char str[2];
+            
             str[0] = keyboardLine0[keyCode];
+            if(upperCased == 1){
+                str[0] = Upper(str[0]);
+                upperCased = 0;
+            }
             write(str);
         }
     }
