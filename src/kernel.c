@@ -17,9 +17,13 @@ void Main(void){
             uint8_t keyCode = readKeyCode();
             if(keyCode > 127)
                 continue;
-            char bfr[5];
-            intToStr(keyCode,bfr,0);
-            write(bfr);
+            //char bfr[5];
+            //intToStr(keyCode,bfr,0);
+            //write(bfr);
+            keyCode--;
+            char str[5];
+            str[0] = keyboardLine0[keyCode];
+            write(str);
         }
     }
     write("Hello world!\nHey");

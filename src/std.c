@@ -11,6 +11,7 @@ void reverse(char str[], int length) {
         end--;
     }
 }
+char keyboardLine0[] = "!1234567890-=<\tqwertyuiop[]\n_asdfghjkl;'NN\\zxcvbnm,./    ";
 
 int intToStr(int num, char str[], int precision) {
     int i = 0;

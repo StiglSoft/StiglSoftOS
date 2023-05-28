@@ -8,7 +8,6 @@ uint8_t inb(uint16_t port) {
 int isKeyPressed() {
     return (inb(0x64) & 0x01);
 }
-
 // Function to read a key code from the keyboard
 uint8_t readKeyCode() {
     return inb(0x60);
