@@ -5,19 +5,20 @@
 void outb(uint16_t port, uint8_t value) {
     asm volatile ("outb %0, %1" : : "a"(value), "Nd"(port));
 }
-
+void Clear(){
+    // Clearing the screen
+    uint16_t* screenBuffer = (uint16_t*)0xB8000;
+    for (uint16_t i = 0; i < 320 * 200; ++i) {
+        screenBuffer[i] = 0x0700; // Black background (0x00) and white foreground (0x07)
+    }
+}   
 // Function to set the video mode
 void setVideoMode() {
     // Setting the video mode 0x03 (80x25 text mode)
     outb(0x03C4, 0x03);
     outb(0x03C2, 0xE3);
     outb(0x03C2, 0x63);
-
-    // Clearing the screen
-    uint16_t* screenBuffer = (uint16_t*)0xB8000;
-    for (uint16_t i = 0; i < 320 * 200; ++i) {
-        screenBuffer[i] = 0x0700; // Black background (0x00) and white foreground (0x07)
-    }
+    Clear();
 }
 
 // Function to draw a pixel at the specified coordinates
