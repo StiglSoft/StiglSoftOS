@@ -44,7 +44,6 @@ int cmp1(char a[], char b[]){
     return 0;
 }
 void shell(){
-    //char buffer[255];
     int buffer1[512];
     int count =0;
     int cnt = 0;
@@ -52,7 +51,6 @@ void shell(){
     while(1){
         int prt = 1;
         char inp = getChar();
-        //buffer[count] = inp;
         if(inp == '1'){
             buffer1[count] += 1;
         }else if(inp == '2'){
@@ -86,7 +84,7 @@ void shell(){
         }else if(inp == 'f'){
             buffer1[count] += 15;
         }else if(inp == '!'){
-            return;
+            asm volatile("int $0x10\n");
         }else if(inp == '\n'){
             write("\nCompiling!\n");
             Execute(buffer1,count);
