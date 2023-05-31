@@ -18,7 +18,11 @@ enum vga_color {
 	LIGHT_BROWN = 14,
 	WHITE = 15,
 };
-
+void printCh(char str){
+    char toprt[2];
+    toprt[0] = str;
+    write(toprt);
+}
 size_t LengthOf(const char* str){
 	size_t len = 0;
 	while (str[len])

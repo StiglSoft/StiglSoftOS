@@ -103,3 +103,14 @@ char* strcpy(char* destination, const char* source) {
 
     return destination;
 }
+int compareStrings(char a[], char b[]) {
+    int i = 0;
+    
+    while (a[i] == b[i]) {
+        if (a[i] == '\0')
+            return 0; // Strings are equal
+        i++;
+    }
+    
+    return a[i] - b[i];
+}
