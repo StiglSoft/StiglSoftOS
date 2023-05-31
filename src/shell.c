@@ -1,5 +1,4 @@
 #include "header.h"
-#include "io/vga.c"
 #include "stiglsoftvm/executor.c"
 #include "io/keyboard.c"
 #include "std.c"
@@ -44,7 +43,7 @@ int cmp1(char a[], char b[]){
         return 1;
     return 0;
 }
-int shell(){
+void shell(){
     //char buffer[255];
     int buffer1[512];
     int count =0;
@@ -86,9 +85,12 @@ int shell(){
             buffer1[count] += 14;
         }else if(inp == 'f'){
             buffer1[count] += 15;
+        }else if(inp == '!'){
+            return;
         }else if(inp == '\n'){
             write("\nCompiling!\n");
             Execute(buffer1,count);
+            cnt--;
         }else{
             prt = 0;
             count--;

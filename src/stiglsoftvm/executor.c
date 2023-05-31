@@ -1,4 +1,5 @@
 #include "../io/console.c"
+#include "../io/vga.c"
 char Sreg[128];
 char Areg[128];
 int GetVal(int val0, int val1, int operator){
@@ -115,6 +116,13 @@ void Execute(int source[], int srcLenght){
             case 14:
                 if(jnz())
                     i = source[++i] -1;
+                break;
+            case 15:
+                if(Sreg[0] == 0){
+                    Clear();
+                }else if(Sreg[0] == 1){
+                    drawPixel(Sreg[1],Sreg[2],Sreg[3]);
+                }
                 break;
         }
     }

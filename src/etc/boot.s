@@ -22,7 +22,6 @@ stack_top:
 _start:
 	mov $stack_top, %esp
 	call Main
-
 1:	hlt
 	jmp 1b
 
