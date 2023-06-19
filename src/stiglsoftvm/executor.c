@@ -67,6 +67,11 @@ int jnz(){
     }return 0;
 }
 void print(){
+    if(Sreg[0] == 0){
+        Clear();
+        Row = -1;
+        Column = 0;
+    }
     for(int i = 1; i < Sreg[0];i++){
         printCh(Sreg[i]);
     }

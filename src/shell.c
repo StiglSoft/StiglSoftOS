@@ -98,7 +98,7 @@ void shell(){
             printCh(inp);
         cnt++;
         if(cnt == 2){
-            if(buffer1[count] > 255)
+            if(count > 500)
                 setcolor(RED);
             count++;
             cnt = 0;
