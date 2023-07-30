@@ -1,10 +1,7 @@
 #include <stdint.h>
 
-
 // Function to write a byte to a specific port
-void outb(uint16_t port, uint8_t value) {
-    asm volatile ("outb %0, %1" : : "a"(value), "Nd"(port));
-}
+
 void Clear(){
     // Clearing the screen
     uint16_t* screenBuffer = (uint16_t*)0xB8000;
