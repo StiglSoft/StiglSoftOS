@@ -1,4 +1,6 @@
-
+#pragma once
+#include <stdint.h>
+#include <stdbool.h>
 void reverse(char str[], int length) {
     int start = 0;
     int end = length - 1;
@@ -113,4 +115,68 @@ int compareStrings(char a[], char b[]) {
     }
     
     return a[i] - b[i];
+}
+char intToHexDigit(uint8_t digit) {
+    if (digit < 10) {
+        return '0' + digit;
+    } else {
+        return 'A' + (digit - 10);
+    }
+}
+
+// Function to reverse a string in place
+void reverseString(char* str, uint8_t length) {
+    uint8_t start = 0;
+    uint8_t end = length - 1;
+    while (start < end) {
+        char temp = str[start];
+        str[start] = str[end];
+        str[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+// Function to convert an integer to a hexadecimal string
+void intToHexString(int32_t num, char* hexString) {
+    bool isNegative = false;
+    uint32_t unsignedNum;
+
+    // Handle negative numbers
+    if (num < 0) {
+        isNegative = true;
+        unsignedNum = (uint32_t)(-num);
+    } else {
+        unsignedNum = (uint32_t)num;
+    }
+
+    // Special case for zero
+    if (unsignedNum == 0) {
+        hexString[0] = '0';
+        hexString[1] = '0';
+        hexString[2] = '\0';
+        return;
+    }
+
+    uint8_t index = 0;
+    while (unsignedNum > 0) {
+        uint8_t remainder = unsignedNum % 16;
+        hexString[index++] = intToHexDigit(remainder);
+        unsignedNum /= 16;
+    }
+
+    // Add the negative sign for negative numbers
+    if (isNegative) {
+        hexString[index++] = '-';
+    }
+
+    // Fill with '0' digits until we have at least two digits
+    while (index < 2) {
+        hexString[index++] = '0';
+    }
+
+    hexString[index] = '\0';
+
+    // Reverse the string to get the correct hexadecimal representation
+    reverseString(hexString, index);
 }
