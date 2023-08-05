@@ -58,9 +58,9 @@ int intToStr(int num, char str[], int precision) {
         str[i++] = rem + '0';
         num = num / 10;
 
-        if (precision > 0 && precision == i) {
-            str[i++] = '.';
-        }
+        //if (precision > 0 && precision == i) {
+        //    str[i++] = '.';
+        //}
     }
     
     if (isNegative)
