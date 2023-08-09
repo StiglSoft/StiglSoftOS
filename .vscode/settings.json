@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "header.h": "c",
-        "cstdint": "c",
-        "stddef.h": "c",
-        "disk.h": "c",
-        "utils.h": "c"
-    }
-}

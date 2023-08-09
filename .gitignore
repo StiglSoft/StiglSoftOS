@@ -2,3 +2,4 @@ bin/
 disk.img
 mnt/
 tmp/
+.vscode

@@ -13,7 +13,7 @@ uint8_t fsEndSector[3] = {0x45,0x53,0x3D};
 uint8_t fsVersion[7] = {0x56,0x45,0x52,0x3D,0x30,0x30,0x31};
 uint8_t fsCnType[6] = {0x43,0x54,0x3D,0x41,0x54,0x41};
 
-
+uint8_t sizes[2560];//5 Sectors(Listing files on begining)
 void CreateFS(int part, int fsBeginSector, int fsEndingSector){
     for(int i =0; i < 512;i++){
         fsBuffer[i] = 0x00;
@@ -53,11 +53,10 @@ int FSDetect(){
                 write("Sector found\n");
                 int position = findBytes(diskBuffer,sizeof(diskBuffer),fsStartSector,sizeof(fsStartSector)) + 3;
                 int position2 = findBytes(diskBuffer,sizeof(diskBuffer),fsEndSector,sizeof(fsEndSector)) + 3;
-                printlnHex("",position);
                 StartSector = assemble_int8s_into_int32((uint8_t[]){diskBuffer[position++],diskBuffer[position++],diskBuffer[position++],diskBuffer[position++]});
-                printlnHex("Starting sector: ",StartSector);
+                printlnHex("Starting sector: 0x",StartSector);
                 EndSector = assemble_int8s_into_int32((uint8_t[]){diskBuffer[position2++],diskBuffer[position2++],diskBuffer[position2++],diskBuffer[position2++]});
-                printlnHex("Ending sector: ", EndSector);
+                printlnHex("Ending sector: 0x", EndSector);
                 return 0;
             }
         }index++;
@@ -69,7 +68,7 @@ void FSInit(){
     int tmp0 = 0;
     int lastKnown = -1;
     uint32_t size = read_disk_size();
-    printlnNumber("Disk size!:",size);
+    printlnNumber("Disk size:",size);
     while(tmp0 < size){
         readSector(tmp0);
         if(!VerifyZeroes(diskBuffer))
@@ -98,5 +97,31 @@ void FSInit(){
     copySector(fsBuffer,diskBuffer,0,0);
     writeSector(fsEndingSector);
     disk_sync();
-    write("FILESYSTEM WRITEN!\n");
+    write("Filesystem writen!\n");
 }
+void index_files(){
+    int index = 0;
+    for(int i =StartSector+1; i < StartSector + 6;i++){
+        readSector(i);
+        for(int i =0; i < 512;i++){
+            if(diskBuffer[i] == 0x00){
+                printlnNumber("Files found: ",index);
+                return;
+            }
+            sizes[index++] = diskBuffer[i];
+        }
+    }
+}
+void fs_init(){
+    write("Detecting filesystem on your machine...\n");
+    if(FSDetect()){
+        write("Filesystem not found!\n");
+        FSInit();
+        write("Press any key to reboot...");
+        WaitForKeyPress();
+        Reboot();
+    }
+    index_files();
+
+}
+

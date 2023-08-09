@@ -1,11 +1,10 @@
 #include "io/console.c"
 #include "std.c"
 #include "io/disk.c"
-#include "io/vga2.c"
+#include "io/time.h"
 #include "utils/fs.h"
 #include "header.h"
-#include "io/pit.h"
-#include "io/rtc.h"
+#include "utils/shell.h"
 char strbuffer[0xFF];
 
 
@@ -15,27 +14,16 @@ void Reboot(){
     //Crashes the os
     asm volatile("int $0x10");
 }
-int GetSeconds(){
-    struct RTC_time time;
-    get_RTC_time(&time);
-    return time.seconds;
-}
+
 volatile void Main(void){
-    console_init();
-    hideCursor();
-    cpuFrequency = getFrequency();
-    cpuFrequency = getFrequency();
-    cpuFrequency = getFrequency();
-    while(true){
-        //printlnNumber("Seconds:",GetSeconds());
-        printCh('a');
-        delay_with_frequency(1000);
-    }
-    //write("Detecting filesystem on your machine...\n");
-    //if(FSDetect()){
-    //    FSInit();
-    //    Reboot();
-    //}
-    
+    console_setup();
+    write("Console intialized...\n");
+    fs_init();
+    write("Filesystem intialized...\n");
+    time_init();
+    write("Timing intialized...\n");
+    write("ATA intialized...\n");
+    write("Jumping into startup program...\n");
+    shell();
     return;
 }

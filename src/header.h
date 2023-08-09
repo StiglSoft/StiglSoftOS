@@ -33,6 +33,7 @@ char uppercase[] = "!!@#$%^&*()_+<\tQWERTYUIOP{}\n_ASDFGHJKL:\"NN|ZXCVBNM<>?\0\0
 #pragma endregion disk
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "utils/utils.h"
 #include "io/ports.h"
 #include "std.c"

@@ -1,6 +1,6 @@
 #pragma once
 #include "../header.h"
-#include "../io/keyboard.c"
+#include "../io/keyboard.h"
 
 int32_t assemble_int8s_into_int32(int8_t bytes[4]) {
     int32_t byte1 = (int32_t)bytes[0] & 0xFF;
@@ -49,6 +49,15 @@ uint8_t WaitForKeyPress(){
         if(isKeyPressed()){
             uint8_t keyCode = readKeyCode();
             if(keyCode > 127)
+            return keyCode;
+        }
+    }
+}
+int WaitForKeyDown(){
+    while(1){
+        if(isKeyPressed()){
+            uint8_t keyCode = readKeyCode();
+            if(keyCode < 128)
             return keyCode;
         }
     }
@@ -118,4 +127,8 @@ int getFrequency(){
     uint64_t end = get_tsc();
     uint64_t cycles_elapsed = end - start;
     return (int)((int)cycles_elapsed / 1000000.0);   
+}
+void console_setup(){
+    console_init();
+    hideCursor();
 }
