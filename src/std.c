@@ -39,7 +39,7 @@ int abs(int src){
         return -src;
     return src;
 }
-int intToStr(int num, char str[], int precision) {
+int intToStr(int num, char str[]) {
     int i = 0;
     int isNegative = 0;
     if (num == 0) {
@@ -68,7 +68,7 @@ int intToStr(int num, char str[], int precision) {
     //str[i++] = '\n';
     str[i] = '\0';
     reverse(str, i);
-
+    
     return i;
 }
 char* strcat(char* destination, const char* source) {

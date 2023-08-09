@@ -64,3 +64,33 @@ void disk_sync() {
     // Wait for the disk to finish any ongoing write operations
     while ((inb(ATA_STATUS_COMMAND_PORT) & ATA_STATUS_DRQ) != 0);
 }
+#define SECTOR_SIZE         512
+
+// Function to read disk size
+uint64_t read_disk_size() {
+    // Select the drive (master or slave) and send IDENTIFY DEVICE command
+    outb(ATA_DRIVE_PORT, 0xA0);
+    outb(ATA_COMMAND_PORT, 0xEC);
+
+    // Read the status register
+    uint8_t status = inb(ATA_COMMAND_PORT);
+
+    // Wait for the drive to be ready
+    while (status & 0x80) {
+        status = inb(ATA_COMMAND_PORT);
+    }
+
+    // Read the Identify Device data
+    uint16_t data[256];
+    for (int i = 0; i < 256; ++i) {
+        data[i] = inw(ATA_DATA_PORT);
+    }
+
+    // Calculate total sectors
+    uint64_t total_sectors = ((uint64_t)data[61] << 48) |
+                             ((uint64_t)data[60] << 32) |
+                             ((uint64_t)data[101] << 16) |
+                             data[100];
+
+    return total_sectors;
+}

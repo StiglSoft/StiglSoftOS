@@ -8,7 +8,7 @@ fi
 i686-elf-gcc -T src/etc/linker.ld -o bin/kernel.bin -ffreestanding -O2 -nostdlib bin/boot.o bin/kernel.o
 
 #Create and set the disk up
-dd if=/dev/zero of=disk.img bs=1M count=50
+dd if=/dev/zero of=disk.img bs=1M count=30
 sudo losetup /dev/loop0 disk.img
 
 #Mount the disk after formating the partition

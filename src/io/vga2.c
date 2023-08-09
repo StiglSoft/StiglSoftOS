@@ -93,3 +93,7 @@ void write_regs(unsigned char *regs)
 	outb(VGA_AC_INDEX, 0x20);
 }
 // End copied code
+int vga_init(){
+	write_regs(g_320x200x256);
+    vga_clear_screen();
+}
