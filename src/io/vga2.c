@@ -1,5 +1,5 @@
 #include "vga2.h"
-#include "ports.c"
+#include "ports.h"
 unsigned char g_320x200x256[] =
 {
 /* MISC */

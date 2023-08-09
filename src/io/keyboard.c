@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "ports.c"
+#include "ports.h"
 
 // Function to check if a key is pressed
 int isKeyPressed() {

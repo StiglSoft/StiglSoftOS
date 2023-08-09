@@ -88,3 +88,11 @@ void write(const char* str){
 		}
 	}
 }
+
+void Clear(){
+    uint16_t* screenBuffer = (uint16_t*)0xB8000;
+    for (uint16_t i = 0; i < 320 * 200; ++i) {
+        screenBuffer[i] = 0x0700;
+    }
+
+}   

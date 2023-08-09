@@ -4,7 +4,15 @@
 #define SHIFT_KEY2 53
 char lowercase[] = "!1234567890-=<\tqwertyuiop[]\n_asdfghjkl;'NN\\zxcvbnm,./\0\0\0 ";
 char uppercase[] = "!!@#$%^&*()_+<\tQWERTYUIOP{}\n_ASDFGHJKL:\"NN|ZXCVBNM<>?\0\0\0 ";
+#pragma region time
+    #define PIT_CHANNEL_0 0x40
+    #define PIT_CMD_REG    0x43
+    #define RTC_PORT_SECONDS 0x70
+    #define RTC_PORT_SECONDS_DATA 0x71
 
+    #define PIT_CONTROL_PORT 0x43
+    #define PIT_CHANNEL0_PORT 0x40
+#pragma endregion time
 #pragma region disk
     //Disk
     #define ATA_DATA_PORT 0x1F0
@@ -26,4 +34,5 @@ char uppercase[] = "!!@#$%^&*()_+<\tQWERTYUIOP{}\n_ASDFGHJKL:\"NN|ZXCVBNM<>?\0\0
 
 #include <stdint.h>
 #include "utils/utils.h"
-#include "io/ports.c"
+#include "io/ports.h"
+#include "std.c"

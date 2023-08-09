@@ -57,8 +57,65 @@ void hideCursor() {
     outb(0x03D4, 0x0A);
     outb(0x03D5, 0x20);
 }
-int findInBuffer(uint8_t buff[], uint8_t keyword[]){
-    int size0 = sizeof(buff);
-    int size1 = sizeof(keyword);
-    
+
+//Old verision:
+//int findInBuffer(uint8_t buff[], uint8_t keyword[], int buffpos){
+//    int size0 = sizeof(buff) / sizeof(buff[0]);
+//    int size1 = sizeof(keyword) / sizeof(keyword[0]);
+//    char out[70];
+//    intToHexString(size1,out);
+//    write(out);
+//    int wordPosition = 0;
+//    for(int i =buffpos; i < size0;i++){
+//        if(keyword[wordPosition] == buff[i]){
+//            wordPosition++;
+//            if(wordPosition == size1)return i - wordPosition -1;
+//        }else wordPosition =0;
+//    }
+//    return -1;
+//}
+int findBytes(const uint8_t haystack[], size_t haystackSize, const uint8_t needle[], size_t needleSize) {
+    for (size_t i = 0; i <= haystackSize - needleSize; ++i) {
+        size_t j;
+        for (j = 0; j < needleSize; ++j) {
+            if (haystack[i + j] != needle[j]) {
+                break;
+            }
+        }   
+        if (j == needleSize) {
+            return i; 
+        }
+    }
+    return -1;
+}
+char buffer[64];
+void printlnNumber(char description[], int number){
+    write(description);
+    intToStr(number,buffer);
+    write(buffer);
+    write("\n");
+}
+void printlnHex(char description[], int number){
+    write(description);
+    intToHexString(number,buffer);
+    write(buffer);
+    write("\n");
+}
+uint64_t get_tsc() {
+    unsigned int lo, hi;
+    __asm__ volatile("rdtsc" : "=a" (lo), "=d" (hi));
+    return ((uint64_t)hi << 32) | lo;
+}
+int cpuFrequency;
+int getFrequency(){
+     for (int i = 0; i < 100000; ++i) {
+        __asm__ volatile("nop");
+    }
+    uint64_t start = get_tsc();
+    for (int i = 0; i < 1000000; ++i) {
+        __asm__ volatile("nop");
+    }
+    uint64_t end = get_tsc();
+    uint64_t cycles_elapsed = end - start;
+    return (int)((int)cycles_elapsed / 1000000.0);   
 }

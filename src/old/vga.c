@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "ports.c"
+#include "ports.h"
 // Function to write a byte to a specific port
 
 void Clear(){
