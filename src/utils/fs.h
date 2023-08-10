@@ -99,14 +99,13 @@ void FSInit(){
     disk_sync();
     write("Filesystem writen!\n");
 }
-void index_files(){
+int fs_index(){
     int index = 0;
     for(int i =StartSector+1; i < StartSector + 6;i++){
         readSector(i);
         for(int i =0; i < 512;i++){
-            if(diskBuffer[i] == 0x00){
-                printlnNumber("Files found: ",index);
-                return;
+            if(diskBuffer[i] == 0x00){ 
+                return index;
             }
             sizes[index++] = diskBuffer[i];
         }
@@ -121,7 +120,30 @@ void fs_init(){
         WaitForKeyPress();
         Reboot();
     }
-    index_files();
-
+    printlnNumber("Files found: ",fs_index());
 }
-
+//Creates new file
+int fs_assign(uint8_t size){
+    for(int i =0; i < 5;i++){
+        readSector(i + StartSector + 1);
+        for(int j =0; j < 512;j++){
+            if (diskBuffer[j] == 0x00){
+                diskBuffer[j] = size;
+                writeSector(i + StartSector + 1);
+                disk_sync();
+                return fs_index() -1;
+                //return j + i * 512;
+            }
+        }
+    }
+}
+int fs_ls(){
+    return fs_index();
+}
+int fs_get(int file){
+    int fileLocation = 0;
+    for(int i =0;i < file;i++){
+        fileLocation += sizes[i];
+    }
+    return fileLocation + StartSector + 1 + 4;
+}

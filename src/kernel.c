@@ -18,7 +18,7 @@ void Reboot(){
 volatile void Main(void){
     console_setup();
     write("Console intialized...\n");
-    fs_init();
+    //fs_init();
     write("Filesystem intialized...\n");
     time_init();
     write("Timing intialized...\n");
