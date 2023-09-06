@@ -7,7 +7,9 @@
 #include "utils/shell.h"
 #include "utils/executor.h"
 #include "io/vga2.c"
+#include "utils/triangler.h"
 char strbuffer[0xFF];
+
 
 
 void Reboot(){
@@ -18,6 +20,9 @@ void Reboot(){
 }
 
 volatile void Main(void){
+    run();
+    Reboot();
+    //Stop
     console_setup();
     write("Console intialized...\n");
     fs_init();

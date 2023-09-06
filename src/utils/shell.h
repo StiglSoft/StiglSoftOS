@@ -63,7 +63,7 @@ void shellExecuteCommand(){
     //    write("\"");
     //}
     if(strcmp(parts[0],"help") == 0){
-        write("HELP ME PLS\n");
+        write("Help can be found at: https://github.com/StiglSoft/StiglSoftOS/\n");
     }else if(strcmp(parts[0], "ls") == 0){
         int files = fs_ls();
         printlnNumber("Files: ", files);

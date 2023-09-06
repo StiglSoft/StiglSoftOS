@@ -1,12 +1,17 @@
 sudo rm disk.img -rf
 rm bin/*
 i686-elf-as src/etc/boot.s -o bin/boot.o
+if [ $? -ne 0 ]; then 
+exit 1
+fi
 i686-elf-gcc -w -Werror -c src/kernel.c -o bin/kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 if [ $? -ne 0 ]; then 
     exit 1
 fi
 i686-elf-gcc -T src/etc/linker.ld -o bin/kernel.bin -ffreestanding -O2 -nostdlib bin/boot.o bin/kernel.o
-
+if [ $? -ne 0 ]; then 
+exit 1
+fi
 #Create and set the disk up
 dd if=/dev/zero of=disk.img bs=1M count=30
 sudo losetup /dev/loop0 disk.img

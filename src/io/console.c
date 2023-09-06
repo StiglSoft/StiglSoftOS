@@ -81,6 +81,7 @@ void write(const char* str){
 		if(str[i] == '\n'){
 			Column = 0;
 			Row++;
+			
 		}else if (str[i] == '\t'){
 			write("    ");
 		}else{
