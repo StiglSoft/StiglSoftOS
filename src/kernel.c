@@ -5,6 +5,8 @@
 #include "utils/fs.h"
 #include "header.h"
 #include "utils/shell.h"
+#include "utils/executor.h"
+#include "io/vga2.c"
 char strbuffer[0xFF];
 
 
@@ -18,7 +20,7 @@ void Reboot(){
 volatile void Main(void){
     console_setup();
     write("Console intialized...\n");
-    //fs_init();
+    fs_init();
     write("Filesystem intialized...\n");
     time_init();
     write("Timing intialized...\n");

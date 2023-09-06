@@ -1,5 +1,8 @@
 #pragma once
 
+
+#define VGA_ADDRESS 0xA0000
+
 #define SHIFT_KEY 41
 #define SHIFT_KEY2 53
 #define BACKSPACE_KEY 13
@@ -37,5 +40,6 @@ char uppercase[] = "!!@#$%^&*()_+<\tQWERTYUIOP{}\n_ASDFGHJKL:\"NN|ZXCVBNM<>?\0\0
 #include <stdint.h>
 #include <stdbool.h>
 #include "utils/utils.h"
+#include "utils/stack.h"
 #include "io/ports.h"
 #include "std.c"

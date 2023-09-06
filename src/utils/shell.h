@@ -1,6 +1,5 @@
 #pragma once
 #include "../header.h"
-//#include "../io/console.c"
 char shellBuffer[0xFF];
 int shellBufferSize = 0;
 int shellRunning = 1;
@@ -98,6 +97,10 @@ void shellExecuteCommand(){
         write("\n");
     }else if(strcmp(parts[0],"reset") == 0){
         Reboot();
+    }else if(strcmp(parts[0],"exec") == 0){
+        execute(atoi(parts[1]));
+    }else if(strcmp(parts[0],"exit") == 0){
+        return;
     }else{
         write("Invalid command!\n");
     }

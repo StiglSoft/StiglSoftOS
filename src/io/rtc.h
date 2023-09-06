@@ -1,3 +1,4 @@
+#pragma once
 #include "../header.h"
 
 // Function to read a byte from an RTC register
